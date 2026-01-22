@@ -1,0 +1,31 @@
+import java.sql.*;
+
+public class CaseManager {
+    private DatabaseHandler dbHandler;
+
+    public CaseManager(DatabaseHandler dbHandler) {
+        this.dbHandler = dbHandler;
+    }
+
+    // Добавление дела в базу
+    public void addCase(Case policeCase) throws SQLException {
+        String query = "INSERT INTO cases (name, year, category, victim) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = dbHandler.getConnection().prepareStatement(query)) {
+            stmt.setString(1, policeCase.getCaseName());
+            stmt.setInt(2, policeCase.getYear());
+            stmt.setString(3, policeCase.getCategory());
+            stmt.setString(4, policeCase.getVictim());
+            stmt.executeUpdate();
+        }
+    }
+
+    // Удаление дела по ID
+    public boolean deleteCase(int caseId) throws SQLException {
+        String query = "DELETE FROM cases WHERE id = ?";
+        try (PreparedStatement stmt = dbHandler.getConnection().prepareStatement(query)) {
+            stmt.setInt(1, caseId);
+            int rowsDeleted = stmt.executeUpdate();
+            return rowsDeleted > 0;
+        }
+    }
+}

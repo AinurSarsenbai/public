@@ -1,0 +1,27 @@
+import java.sql.*;
+
+public class DatabaseHandler {
+    private Connection connection;
+
+    public DatabaseHandler() throws SQLException {
+        String url = "jdbc:postgresql://localhost:5432/police_archive";
+        String user = "postgres";
+        String password = "12345";
+        this.connection = DriverManager.getConnection(url, user, password);
+    }
+
+    public Connection getConnection() {
+        return connection;
+    }
+
+    public void close() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+                System.out.println("Database connection closed.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error closing database connection: " + e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,37 @@
+public class Case {
+    private int caseNumber;
+    private String name;
+    private int year;
+    private String category;
+    private String victim;
+    private boolean archived;
+
+    public Case(int caseNumber, String name, int year, String category, String victim) {
+        this.caseNumber = caseNumber;
+        this.name = name;
+        this.year = year;
+        this.category = category;
+        this.victim = victim;
+        this.archived = false;
+    }
+
+    public String getCaseName() {
+        return name;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getVictim() {
+        return victim;
+    }
+
+    public void archive() {
+        this.archived = true;
+    }
+}
